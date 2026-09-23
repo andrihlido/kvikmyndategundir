@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kvikmyndategundir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDF0F4; --surface:#FFFFFF; --ink:#1A1C2B; --muted:#5B6072; --line:#D5DAE3;
+  --warn:#B86E00; --focus:#1F5FD1;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161F; --surface:#1E2130; --ink:#ECEEF4; --muted:#A3A8B8; --line:#343949;
+    --warn:#F0A83A; --focus:#7FA8FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161F; --surface:#1E2130; --ink:#ECEEF4; --muted:#A3A8B8; --line:#343949;
+  --warn:#F0A83A; --focus:#7FA8FF;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:2rem 1.25rem 3rem}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);max-width:60ch;margin:.5rem 0 1.5rem}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem;margin:1.5rem 0 2rem}
+.tile{--g:#888;position:relative;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:.85rem .9rem .8rem 1.15rem;cursor:pointer;overflow:hidden;transition:transform .12s ease}
+.tile::before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:var(--g)}
+.tile:hover{transform:translateY(-2px)}
+.tile[aria-pressed="true"]{border-color:var(--g);background:color-mix(in srgb,var(--g) 16%,var(--surface))}
+.tile .emo{font-size:1.6rem;line-height:1}
+.tile .is{display:block;font-family:var(--display);font-weight:800;font-size:1.1rem;margin-top:.4rem}
+.tile .en{display:block;color:var(--muted);font-size:.9rem}
+.tile .n{position:absolute;top:.6rem;right:.7rem;font-size:.8rem;color:var(--muted)}
+
+.detail{--g:#888;background:var(--surface);border:2px solid var(--line);border-top:10px solid var(--g);border-radius:12px;padding:1.5rem 1.4rem}
+.dhead{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.25rem}
+.dhead .emo{font-size:2.6rem;line-height:1}
+.dhead h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800}
+.dhead .en{color:var(--muted);font-style:italic}
+.dhead p{margin:.35rem 0 0;max-width:62ch}
+.subs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.sub{border-left:4px solid var(--g);padding:.2rem 0 .2rem 1rem}
+.sub h3{font-size:1.25rem;font-weight:600}
+.sub .en{color:var(--muted);font-size:.95rem;font-style:italic}
+.sub p{margin:.3rem 0 .6rem;max-width:55ch}
+.films{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:0;padding:0}
+.film{display:inline-flex;align-items:center;gap:.45rem;border:1.5px solid var(--line);border-radius:999px;padding:.3rem .8rem;font-size:.95rem;color:var(--ink);text-decoration:none}
+.film:hover{border-color:var(--g);background:color-mix(in srgb,var(--g) 12%,var(--surface))}
+.film .ext{font-size:.8rem;color:var(--muted)}
+.film em{font-style:italic}
+.film .y{color:var(--muted)}
+.note{font-size:.88rem;color:var(--warn);margin:.4rem 0 0}
+
+
+.info{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.info div{border-top:2px solid var(--ink);padding-top:.75rem}
+.info h3{font-size:1.15rem;margin-bottom:.35rem}
+.info p{margin:0;color:var(--muted);max-width:55ch}
+
+@media (prefers-reduced-motion: reduce){.tile{transition:none}.tile:hover{transform:none}}
+@media (max-width:520px){.subs{grid-template-columns:1fr}.dhead .emo{font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kvikmyndategundir</h1>
+  <p class="lead">Veldu tegund til að sjá undirtegundir hennar og dæmi um myndir. Smelltu á mynd til að skoða hana á IMDb.</p>
+
+  <nav class="shelf" id="shelf" aria-label="Aðaltegundir"></nav>
+  <main id="main"></main>
+
+  <section class="info" aria-label="Gott að vita">
+    <div>
+      <h3>Teiknimynd er ekki tegund</h3>
+      <p>Teiknimynd er miðill, þ.e. aðferð við að búa til mynd. <em>Coraline</em> er hrollvekja og <em>Kung Fu Panda</em> er hasarmynd, þótt báðar séu teiknaðar.</p>
+    </div>
+    <div>
+      <h3>Flestar myndir eru blendingar</h3>
+      <p>Mynd tilheyrir oft fleiri en einni tegund. <em>Back to the Future</em> er í senn vísindaskáldskapur, gamanmynd og ævintýramynd.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+const G = [
+ {id:"gaman",is:"Gamanmynd",en:"Comedy",emo:"😂",c:"#D99A00",d:"Myndir sem eiga fyrst og fremst að fá áhorfendur til að hlæja.",subs:[
+  {is:"Skopstæling",en:"parody",d:"Gerir grín að annarri mynd eða heilli kvikmyndategund.",f:[["Galaxy Quest",1999,"0177789"],["Shrek",2001,"0126029"]]},
+  {is:"Farsi",en:"farce",d:"Misskilningur og ringulreið sem stigmagnast eftir því sem líður á myndina.",f:[["Clue",1985,"0088930"]]},
+  {is:"Ærslagangur",en:"slapstick",d:"Líkamlegt grín þar sem fólk dettur, rekst á og lendir í óförum.",f:[["Home Alone",1990,"0099785"],["Mr. Bean's Holiday",2007,"0453451"]]},
+  {is:"Rómantísk gamanmynd",en:"romantic comedy / rom-com",d:"Ástarsaga sögð á léttan og fyndinn hátt.",f:[["Enchanted",2007,"0461770"],["The Princess Diaries",2001,"0247638"]]},
+  {is:"Unglingagrín",en:"teen comedy",d:"Gerist oftast í skóla og fjallar um vináttu, vinsældir og vandræði unglinga.",f:[["Freaky Friday",2003,"0322330"],["Diary of a Wimpy Kid",2010,"1196141"]]},
+  {is:"Háðsádeila",en:"satire",d:"Grín með gagnrýnum broddi sem beinist að samfélaginu, valdi eða hugmyndum.",f:[["The Truman Show",1998,"0120382"],["The Lego Movie",2014,"1490017"]]},
+  {is:"Þurr húmor",en:"deadpan",d:"Persónur segja og gera fáránlega hluti án þess að sýna svipbrigði.",f:[["Napoleon Dynamite",2004,"0374900"]]}
+ ]},
+ {id:"drama",is:"Drama",en:"Drama",emo:"🎭",c:"#8E3B8A",d:"Alvarlegri myndir sem snúast um persónur, tilfinningar og átök í lífi þeirra.",subs:[
+  {is:"Þroskasaga",en:"coming-of-age",d:"Aðalpersónan þroskast og fullorðnast í gegnum reynslu sína.",f:[["Wonder",2017,"2543472"],["October Sky",1999,"0132477"]]},
+  {is:"Ævisöguleg mynd",en:"biopic",d:"Byggð á ævi og afrekum raunverulegs fólks.",f:[["Hidden Figures",2016,"4846340"]]},
+  {is:"Íþróttadrama",en:"sports drama",d:"Íþróttir eru umgjörðin en sagan snýst um liðsheild, mótlæti og sigra.",f:[["Remember the Titans",2000,"0210945"]]},
+  {is:"Réttardrama",en:"courtroom drama",d:"Sagan gerist að mestu í réttarsal eða í kringum dómsmál.",f:[["12 Angry Men",1957,"0050083"]]},
+  {is:"Búningadrama",en:"period drama",d:"Gerist á öðrum tíma og leggur áherslu á búninga, siði og umhverfi þess tíma.",f:[["Little Women",2019,"3281548"]]}
+ ]},
+ {id:"hasar",is:"Hasarmynd",en:"Action",emo:"💥",c:"#D6452B",d:"Hraði, eltingaleikir, bardagar og áhættuatriði.",subs:[
+  {is:"Ofurhetjumynd",en:"superhero",d:"Aðalpersónan býr yfir ofurkröftum og berst við illmenni.",f:[["Spider-Man: Into the Spider-Verse",2018,"4633694"],["The Incredibles",2004,"0317705"]]},
+  {is:"Njósnamynd",en:"spy",d:"Leynilegar sendiferðir, dulbúningar og græjur.",f:[["Agent Cody Banks",2003,"0313911"]]},
+  {is:"Bardagalistamynd",en:"martial arts",d:"Bardagalistir eins og karate eða kung fu eru í forgrunni.",f:[["The Karate Kid",1984,"0087538"],["Kung Fu Panda",2008,"0441773"]]},
+  {is:"Hasargrín",en:"action comedy",d:"Hasar og grín í bland.",f:[["Big Hero 6",2014,"2245084"]]},
+  {is:"Hamfaramynd",en:"disaster",d:"Fólk reynir að lifa af náttúruhamfarir eða stórslys.",f:[["The Poseidon Adventure",1972,"0069113"]]}
+ ]},
+ {id:"aevintyri",is:"Ævintýramynd",en:"Adventure",emo:"🧭",c:"#2F8F5B",d:"Persónur leggja upp í ferðalag eða leiðangur á framandi slóðir.",subs:[
+  {is:"Fjársjóðsleit",en:"treasure hunt",d:"Persónur elta vísbendingar og kort í leit að týndum fjársjóði.",f:[["The Goonies",1985,"0089218"],["National Treasure",2004,"0368891"],["Raiders of the Lost Ark",1981,"0082971"]]},
+  {is:"Sjóræningjamynd",en:"swashbuckler",d:"Skylmingar, skip og ævintýri á úthöfunum.",f:[["Hook",1991,"0102057"]]},
+  {is:"Lífsbarátta",en:"survival",d:"Persónur þurfa að komast af við erfiðar aðstæður.",f:[["Life of Pi",2012,"0454876"],["Apollo 13",1995,"0112384"]]}
+ ]},
+ {id:"fantasia",is:"Fantasía",en:"Fantasy",emo:"🐉",c:"#6B4FD8",d:"Töfrar, goðsagnaverur og heimar sem lúta öðrum lögmálum en okkar.",subs:[
+  {is:"Epísk fantasía",en:"epic / high fantasy",d:"Gerist í heilum tilbúnum heimi þar sem barist er milli góðs og ills.",f:[["Willow",1988,"0096446"]]},
+  {is:"Gátt í annan heim",en:"portal fantasy",d:"Persóna fer úr okkar heimi yfir í töfraheim.",f:[["The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",2005,"0363771"],["Spirited Away",2001,"0245429"]]},
+  {is:"Ævintýri",en:"fairy tale",d:"Prinsessur, riddarar, álög og sögur sem minna á gömul ævintýri.",f:[["The Princess Bride",1987,"0093779"]]},
+  {is:"Töfraraunsæi",en:"magical realism",d:"Venjulegur heimur þar sem töfrar gerast og enginn kippir sér upp við þá.",f:[["Encanto",2021,"2953050"]]},
+  {is:"Draumkennd mynd",en:"surreal / dreamlike",d:"Mörk draums og veruleika eru óljós og áhorfandinn veit ekki alltaf hvað er raunverulegt.",f:[["The Secret Life of Walter Mitty",2013,"0359950"],["Alice in Wonderland",1951,"0043274"]]}
+ ]},
+ {id:"visindi",is:"Vísindaskáldskapur",en:"Science fiction",emo:"🚀",c:"#1F7FC4",d:"Framtíðin, geimurinn og tækni sem er ekki (enn) til.",subs:[
+  {is:"Geimópera",en:"space opera",d:"Stórar sögur sem gerast úti í geimnum með geimskipum og framandi plánetum.",f:[["Star Wars",1977,"0076759"]]},
+  {is:"Dystópía",en:"dystopian",d:"Framtíðarsamfélag sem hefur farið illa.",f:[["WALL-E",2008,"0910970"],["City of Ember",2008,"0970411"]]},
+  {is:"Tímaflakk",en:"time travel",d:"Persónur ferðast fram eða aftur í tímann.",f:[["Back to the Future",1985,"0088763"]]},
+  {is:"Gervigreind og vélmenni",en:"AI / robots",d:"Fjallar um vélar sem hugsa og samband þeirra við manneskjur.",f:[["The Iron Giant",1999,"0129167"],["Short Circuit",1986,"0091949"]]},
+  {is:"Fyrstu kynni",en:"first contact",d:"Mannkynið hittir geimverur í fyrsta sinn.",f:[["E.T. the Extra-Terrestrial",1982,"0083866"],["Close Encounters of the Third Kind",1977,"0075860"]]}
+ ]},
+ {id:"spenna",is:"Spennumynd",en:"Thriller",emo:"🔍",c:"#3F5A7A",d:"Byggir upp spennu og óvissu svo að áhorfandinn situr á sætisbrúninni.",subs:[
+  {is:"Morðgáta",en:"whodunit / mystery",d:"Áhorfandinn reynir, ásamt spæjara, að finna út hver framdi glæpinn.",f:[["Murder on the Orient Express",1974,"0071877"],["Nancy Drew",2007,"0479500"]]},
+  {is:"Ránsmynd",en:"heist",d:"Hópur skipuleggur flókið rán og allt snýst um fléttuna.",f:[["The Italian Job",1969,"0064505"],["Fantastic Mr. Fox",2009,"0432283"]]},
+  {is:"Sálfræðileg spenna",en:"psychological thriller",d:"Spennan byggist á hugsunum, grun og óvissu frekar en hasar.",f:[["Rear Window",1954,"0047396"]]}
+ ]},
+ {id:"hrollur",is:"Hrollvekja",en:"Horror",emo:"👻",c:"#8A1F33",d:"Á að hræða áhorfendur eða vekja hjá þeim óhug.",subs:[
+  {is:"Hrollvekjugrín",en:"horror comedy",d:"Draugar og skrímsli, en meira fyndið en hræðilegt.",f:[["Ghostbusters",1984,"0087332"],["Beetlejuice",1988,"0094721"]]},
+  {is:"Mild hrollvekja",en:"family horror",d:"Óhugnanleg en ætluð yngri áhorfendum.",f:[["Coraline",2009,"0327597"],["Goosebumps",2015,"1051904"]]},
+  {is:"Yfirnáttúruleg hrollvekja",en:"supernatural horror",d:"Draugar, nornir og öfl sem ekki er hægt að útskýra.",f:[["ParaNorman",2012,"1623288"],["Hocus Pocus",1993,"0107120"]]},
+  {is:"Skrímslamynd",en:"creature feature",d:"Skepna eða skrímsli ógnar persónunum.",f:[["Jaws",1975,"0073195","Inniheldur nokkur blóðug atriði."],["Gremlins",1984,"0087363","Inniheldur ofbeldisfull atriði."]]}
+ ]},
+ {id:"songleikur",is:"Söngleikur",en:"Musical",emo:"🎵",c:"#C93F83",d:"Persónur tjá tilfinningar sínar með söng og dansi.",subs:[
+  {is:"Frumsaminn söngleikur",en:"original musical",d:"Lögin eru samin sérstaklega fyrir myndina.",f:[["The Greatest Showman",2017,"1485796"]]},
+  {is:"Söngleikur með þekktum lögum",en:"jukebox musical",d:"Sagan er byggð í kringum lög sem voru þegar þekkt.",f:[["Sing",2016,"3470600"]]}
+ ]},
+ {id:"vestri",is:"Vestri",en:"Western",emo:"🤠",c:"#B8742A",d:"Gerist oftast í villta vestri Norður-Ameríku á 19. öld.",subs:[
+  {is:"Landnemavestri",en:"frontier western",d:"Fjallar um landnám og átök á sléttum vestursins.",f:[["Spirit: Stallion of the Cimarron",2002,"0166813"]]},
+  {is:"Vestragrín",en:"comedy western",d:"Leikur sér að einkennum vestrans og gerir grín að þeim.",f:[["Rango",2011,"1192628"]]}
+ ]},
+ {id:"strid",is:"Stríðsmynd",en:"War film",emo:"🪖",c:"#5E6B3A",d:"Gerist í stríði og sýnir áhrif þess á fólk.",subs:[
+  {is:"Söguleg stríðsmynd",en:"historical war film",d:"Byggð á raunverulegum atburðum úr stríði.",f:[["Empire of the Sun",1987,"0092965"]]}
+ ]},
+ {id:"heimild",is:"Heimildarmynd",en:"Documentary",emo:"🎥",c:"#2B8C8C",d:"Fjallar um raunverulega atburði, fólk eða náttúru.",subs:[
+  {is:"Mannlýsing",en:"portrait documentary",d:"Fylgir einni manneskju og segir sögu hennar.",f:[["Jiro Dreams of Sushi",2011,"1772925"]]},
+  {is:"Náttúrulífsmynd",en:"nature documentary",d:"Fylgist með dýrum og náttúru.",f:[["March of the Penguins",2005,"0428803"]]}
+ ]}
+];
+
+let sel = "gaman";
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const count = g => g.subs.reduce((n,s)=>n+s.f.length,0);
+
+function filmHTML(f){
+  return `<li><a class="film" href="https://www.imdb.com/title/tt${f[2]}/" target="_blank" rel="noopener"><em>${esc(f[0])}</em><span class="y">${f[1]}</span>${f[3]?'<span aria-label="Athugið">⚠</span>':""}<span class="ext" aria-hidden="true">IMDb ↗</span></a></li>`;
+}
+function subHTML(s){
+  const notes = s.f.filter(f=>f[3]).map(f=>`<p class="note">⚠ <em>${esc(f[0])}</em>: ${esc(f[3])}</p>`).join("");
+  return `<article class="sub">
+    <h3>${esc(s.is)}</h3>
+    <div class="en">e. ${esc(s.en)}</div>
+    <p>${esc(s.d)}</p>
+    <ul class="films">${s.f.map(filmHTML).join("")}</ul>${notes}
+  </article>`;
+}
+function render(){
+  $("#shelf").innerHTML = G.map(g=>{
+    const n = count(g);
+    return `<button class="tile" style="--g:${g.c}" data-id="${g.id}" aria-pressed="${sel===g.id}">
+      <span class="emo" aria-hidden="true">${g.emo}</span>
+      <span class="is">${esc(g.is)}</span>
+      <span class="en">${esc(g.en)}</span>
+      <span class="n">${n} ${n===1?"mynd":"myndir"}</span>
+    </button>`;
+  }).join("");
+  const g = G.find(x=>x.id===sel);
+  $("#main").innerHTML = `<section class="detail" style="--g:${g.c}">
+    <div class="dhead"><span class="emo" aria-hidden="true">${g.emo}</span>
+      <div><h2>${esc(g.is)}</h2><div class="en">e. ${esc(g.en)}</div><p>${esc(g.d)}</p></div>
+    </div>
+    <div class="subs">${g.subs.map(subHTML).join("")}</div>
+  </section>`;
+}
+$("#shelf").addEventListener("click", e=>{
+  const b = e.target.closest(".tile"); if(!b) return;
+  sel = b.dataset.id; render();
+  if(window.innerWidth < 700) $("#main").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"});
+});
+render();
+</script>
+</body>
+</html>
